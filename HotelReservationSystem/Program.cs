@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -32,8 +33,35 @@ namespace HotelReservationSystem
             {
                 Console.WriteLine(day);
             }
+            //iterating loop until user wants to find best hotels
+            while (true)
+            {
+                Console.WriteLine("Please Enter 1 to find cheapest hotel\nPlease Enter 2 to find hotel with best ratings");
+                //reading input to choose between cheap hotel or best rated hotel
+                int option = Convert.ToInt32(Console.ReadLine());
+                switch (option)
+                {
+                    case 1:
+                        //calling method to calculate cheapest hotel
+                        hotelReservation.CheapestHotelForGivenDates(datesList);
+                        break;
+                    case 2:
+                        //calling method to calculate best rated hotel
+                        hotelReservation.FindingHotelsWithBestRatings(datesList);
+                        break;
+                    default:
+                        Console.WriteLine("Please enter the correct input");
+                        break;
+                }
+                Console.WriteLine("Do you want to find out again,press y to check again");
+                string check = Console.ReadLine();
+                if(!(check.ToLower().Equals("y")))
+                {
+                    break;
+                }
+            }
             //calling the method for getting cheapest hotel for given dates
-            hotelReservation.CheapestHotelForGivenDates(datesList);
+            
         }
 
     }

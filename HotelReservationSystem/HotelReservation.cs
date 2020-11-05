@@ -100,6 +100,24 @@
                 }
             }
         }
+        /// <summary>
+        /// Findings the hotels with best ratings.
+        /// </summary>
+        /// <param name="dateList">The date list.</param>
+        public void FindingHotelsWithBestRatings(List<DayOfWeek> dateList)
+        {
+            //calculating rates for each hotel
+            CalculatingPriceForEachHotel(dateList);
+            //iterating to find out best rated hotel
+            foreach(HotelModel hotelModel in rateAndHotelsList)
+            {
+                //lambda expression and linq to find best rated hotel
+                if(hotelModel.ratingsForHotels==rateAndHotelsList.Max(r=>r.ratingsForHotels))
+                {
+                    Console.WriteLine("\nBest Hotel for given Dates:\t" + hotelModel.hotelName + "\nTotal Price to be paid for  hotel:\t" + hotelModel.totalRate + "\nRating of Hotel:\t" + hotelModel.ratingsForHotels);
+                }
+            }
+        }
     }
 
 }
