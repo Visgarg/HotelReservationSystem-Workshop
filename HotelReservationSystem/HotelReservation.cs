@@ -17,13 +17,16 @@
         List<HotelModel> listWithMinPrices = new List<HotelModel>();
 
         /// <summary>
-        /// Addings the hotels in list.
+        /// Addings the hotels in list by checking the customer type
         /// </summary>
         public void AddingHotelsInList(string customerType)
         {
+            //printing custmer type
             Console.WriteLine("Type of Customer:\t" + customerType);
+            //checking for customer type to be equal to value in enum customer type
             if (customerType.Equals(CustomerType.Regular.ToString()))
             {
+                //adding values in hotellist according to the customer type
                 hotelsList.Add(new HotelModel("Lakewood", 110, 90, 3));
                 hotelsList.Add(new HotelModel("Bridegewood", 150, 50, 4));
                 hotelsList.Add(new HotelModel("Ridgewood", 220, 150, 5));

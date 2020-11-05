@@ -17,12 +17,14 @@ namespace HotelReservationSystem
             string datesString = Console.ReadLine();
             //adding the string of dates in array
             string[] datesArray = datesString.Split(',');
+            //first input was taken as customer type, which is seperated and assigned to customer type
             string customerType = datesArray[0];
             //calling method for adding hotels in list
             hotelReservation.AddingHotelsInList(customerType);
             //creating day of week dates list
             List<DayOfWeek> datesList = new List<DayOfWeek>();
             //iterating over array of dates, converting it in date and then adding day of week  in list
+            //iteration from 1 as first input was customer type
             for (int i=1;i<datesArray.Length;i++)
             {
                DateTime date= Convert.ToDateTime(datesArray[i]);
