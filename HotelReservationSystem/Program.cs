@@ -24,6 +24,7 @@ namespace HotelReservationSystem
             for (int i=0;i<datesArray.Length;i++)
             {
                DateTime date= Convert.ToDateTime(datesArray[i]);
+               //adding day of week of dates in list
                datesList.Add(date.DayOfWeek);
             }
             //printing the days
