@@ -17,18 +17,37 @@
         List<HotelModel> listWithMinPrices = new List<HotelModel>();
 
         /// <summary>
-        /// Addings the hotels in list.
+        /// Addings the hotels in list by checking the customer type
         /// </summary>
-        public void AddingHotelsInList()
+        public void AddingHotelsInList(string customerType)
         {
-            hotelsList.Add(new HotelModel("Lakewood", 110,90,3));
-            hotelsList.Add(new HotelModel("Bridegewood", 150,50,4));
-            hotelsList.Add(new HotelModel("Ridgewood", 220,150,5));
-            Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
-            //printing the details of hotels
-            foreach(HotelModel hotelModel in hotelsList)
+            //printing custmer type
+            Console.WriteLine("Type of Customer:\t" + customerType);
+            //checking for customer type to be equal to value in enum customer type
+            if (customerType.Equals(CustomerType.Regular.ToString()))
             {
-                Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRegularRates+"\t\t"+ hotelModel.weekendRegularRates);
+                //adding values in hotellist according to the customer type
+                hotelsList.Add(new HotelModel("Lakewood", 110, 90, 3));
+                hotelsList.Add(new HotelModel("Bridegewood", 150, 50, 4));
+                hotelsList.Add(new HotelModel("Ridgewood", 220, 150, 5));
+                Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
+                //printing the details of hotels
+                foreach (HotelModel hotelModel in hotelsList)
+                {
+                    Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
+                }
+            }
+            if(customerType.Equals(CustomerType.Rewards.ToString()))
+            {
+                hotelsList.Add(new HotelModel("Lakewood", 80, 80, 3));
+                hotelsList.Add(new HotelModel("Bridegewood", 110, 50, 4));
+                hotelsList.Add(new HotelModel("Ridgewood", 100, 40, 5));
+                Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
+                //printing the details of hotels
+                foreach (HotelModel hotelModel in hotelsList)
+                {
+                    Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
+                }
             }
         }
         /// <summary>
@@ -49,12 +68,12 @@
                     if (day.ToString().Equals("Saturday")||day.ToString().Equals("Sunday"))
                     {
                         //adding rate in total price
-                        totalPrice = totalPrice + hotelModel.weekendRegularRates;
+                        totalPrice = totalPrice + hotelModel.weekendRates;
                     }
                     else
                     {
                         //if weekday, adding rate in total price
-                        totalPrice = totalPrice + hotelModel.weekdayRegularRates;
+                        totalPrice = totalPrice + hotelModel.weekdayRates;
                     }
                 }
                 //printing the total price and hotel name for each iteration
@@ -114,6 +133,7 @@
                 //lambda expression and linq to find best rated hotel
                 if(hotelModel.ratingsForHotels==rateAndHotelsList.Max(r=>r.ratingsForHotels))
                 {
+                    Console.WriteLine("************************* Hotel with best ratings*****************************");
                     Console.WriteLine("\nBest Hotel for given Dates:\t" + hotelModel.hotelName + "\nTotal Price to be paid for  hotel:\t" + hotelModel.totalRate + "\nRating of Hotel:\t" + hotelModel.ratingsForHotels);
                 }
             }
