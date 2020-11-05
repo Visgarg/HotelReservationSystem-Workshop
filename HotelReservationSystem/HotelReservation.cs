@@ -37,7 +37,7 @@
                     Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
                 }
             }
-            if(customerType.Equals(CustomerType.Rewards.ToString()))
+            else if(customerType.Equals(CustomerType.Rewards.ToString()))
             {
                 hotelsList.Add(new HotelModel("Lakewood", 80, 80, 3));
                 hotelsList.Add(new HotelModel("Bridegewood", 110, 50, 4));
@@ -48,6 +48,10 @@
                 {
                     Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
                 }
+            }
+            else
+            {
+                throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_CUSTOMER_TYPE, "Customer type is invalid");
             }
         }
         /// <summary>
