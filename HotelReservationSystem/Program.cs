@@ -12,17 +12,18 @@ namespace HotelReservationSystem
             Console.WriteLine("Welcome to Hotel Reservation Program");
             //instatiating hotel reservations
             HotelReservation hotelReservation = new HotelReservation();
-            //calling method for adding hotels in list
-            hotelReservation.AddingHotelsInList();
-            Console.WriteLine("Please enter the dates for which cheapest hotel needs to be find out");
+            Console.WriteLine("Please enter the customer type and dates for which cheapest hotel needs to be find out");
             //reading the dates in string
             string datesString = Console.ReadLine();
             //adding the string of dates in array
             string[] datesArray = datesString.Split(',');
+            string customerType = datesArray[0];
+            //calling method for adding hotels in list
+            hotelReservation.AddingHotelsInList(customerType);
             //creating day of week dates list
             List<DayOfWeek> datesList = new List<DayOfWeek>();
             //iterating over array of dates, converting it in date and then adding day of week  in list
-            for (int i=0;i<datesArray.Length;i++)
+            for (int i=1;i<datesArray.Length;i++)
             {
                DateTime date= Convert.ToDateTime(datesArray[i]);
                //adding day of week of dates in list

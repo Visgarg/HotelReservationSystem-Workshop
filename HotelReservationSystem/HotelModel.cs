@@ -11,9 +11,9 @@ namespace HotelReservationSystem
     {
         public int totalRate;
         public string hotelName;
-        public int weekdayRegularRates;
+        public int weekdayRates;
         //adding weekend prices for hotels
-        public int weekendRegularRates;
+        public int weekendRates;
         //adding rating to hotel
         public int ratingsForHotels;
         public HotelModel(int totalRate,string hotelName,int ratingsForHotels)
@@ -22,11 +22,11 @@ namespace HotelReservationSystem
             this.hotelName = hotelName;
             this.ratingsForHotels = ratingsForHotels;
         }
-        public HotelModel(string hotelName,int weekdayRegularRates, int weekendRegularRates,int ratingsForHotels)
+        public HotelModel(string hotelName,int weekdayRates, int weekendRates,int ratingsForHotels)
         {
             this.hotelName = hotelName;
-            this.weekdayRegularRates = weekdayRegularRates;
-            this.weekendRegularRates = weekendRegularRates;
+            this.weekdayRates = weekdayRates;
+            this.weekendRates = weekendRates;
             this.ratingsForHotels = ratingsForHotels;
         }
     }
