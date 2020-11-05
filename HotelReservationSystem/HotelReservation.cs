@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     /// <summary>
     /// class to add hotels elements in list and get the cheapest hotel
@@ -10,8 +11,8 @@
     {
         //defining the list which contain all hotel details
         List<HotelModel> hotelsList = new List<HotelModel>();
-        //making a sorted list for adding rates and hotel names
-        SortedDictionary<int, string> rateAndHotelsDictionary = new SortedDictionary<int, string>();
+        //making a  list for adding rates and hotel names
+        List<HotelModel> rateAndHotelsList = new List<HotelModel>();
 
         /// <summary>
         /// Addings the hotels in list.
@@ -19,7 +20,7 @@
         public void AddingHotelsInList()
         {
             hotelsList.Add(new HotelModel("Lakewood", 110,90));
-            hotelsList.Add(new HotelModel("Bridegewood", 160,50));
+            hotelsList.Add(new HotelModel("Bridegewood", 150,50));
             hotelsList.Add(new HotelModel("Ridgewood", 220,150));
             Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
             //printing the details of hotels
@@ -58,7 +59,7 @@
                 Console.WriteLine(" Hotel for given Dates:\t" + hotelModel.hotelName + " Total Price to be paid:\t" +totalPrice);
                 //adding price and hotelname in sorted  dictionary
                 //will sorted by price
-                rateAndHotelsDictionary.Add(totalPrice, hotelModel.hotelName);
+                rateAndHotelsList.Add(new HotelModel(totalPrice,hotelModel.hotelName));
             }
         }
         /// <summary>
@@ -70,11 +71,14 @@
             //calling calculatingpriceforeachhotel for totalrates for each hotel
             CalculatingPriceForEachHotel(datesList);
             //iterating the loop and breaking at first iteration
-            foreach(KeyValuePair<int,string> ratesAndHotels in rateAndHotelsDictionary)
+            foreach(HotelModel hotelModel in rateAndHotelsList.OrderBy(r=>r.totalRate).ToList())
             {
-                Console.WriteLine("\nCheapest Hotel for given Dates:\t"+ratesAndHotels.Value+ "\nTotal Price to be paid for cheapest hotel:\t" + ratesAndHotels.Key);
-                Console.WriteLine();
-                break;
+                if (hotelModel.totalRate == rateAndHotelsList.Min(r => r.totalRate))
+                {
+                    Console.WriteLine("\nCheapest Hotel for given Dates:\t" + hotelModel.hotelName + "\nTotal Price to be paid for cheapest hotel:\t" + hotelModel.totalRate);
+                    Console.WriteLine();
+                }
+
             }
         }
     }
