@@ -79,15 +79,19 @@
                 //printing the hotels with minimum rates
                 if (hotelModel.totalRate == rateAndHotelsList.Min(r => r.totalRate))
                 {
+                    //adding hotel with min prices in another list
                     listWithMinPrices.Add(hotelModel);
+                    //printing details for all minimum hotels
                     Console.WriteLine("\nHotel for given Dates:\t" +hotelModel.hotelName + "\nTotal Price to be paid for hotel:\t" + hotelModel.totalRate+"\nRating of Hotel:\t"+hotelModel.ratingsForHotels);
                     Console.WriteLine();
 
                 }
 
             }
+            //iterating over list of all minimum hotels
             foreach(HotelModel hotelModel in listWithMinPrices)
             {
+                //getting the hotel with max ratings in the min hotels
                 if(hotelModel.ratingsForHotels==listWithMinPrices.Max(r=>r.ratingsForHotels))
                 {
                     Console.WriteLine("*************************Cheapest hotel with best ratings*****************************");
