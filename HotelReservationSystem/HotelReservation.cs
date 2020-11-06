@@ -21,37 +21,44 @@
         /// </summary>
         public void AddingHotelsInList(string customerType)
         {
-            //printing custmer type
-            Console.WriteLine("Type of Customer:\t" + customerType);
-            //checking for customer type to be equal to value in enum customer type
-            if (customerType.Equals(CustomerType.Regular.ToString()))
+            try
             {
-                //adding values in hotellist according to the customer type
-                hotelsList.Add(new HotelModel("Lakewood", 110, 90, 3));
-                hotelsList.Add(new HotelModel("Bridegewood", 150, 50, 4));
-                hotelsList.Add(new HotelModel("Ridgewood", 220, 150, 5));
-                Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
-                //printing the details of hotels
-                foreach (HotelModel hotelModel in hotelsList)
+                //printing custmer type
+                Console.WriteLine("Type of Customer:\t" + customerType);
+                //checking for customer type to be equal to value in enum customer type
+                if (customerType.Equals(CustomerType.Regular.ToString()))
                 {
-                    Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
+                    //adding values in hotellist according to the customer type
+                    hotelsList.Add(new HotelModel("1akewood", 110, 90, 3));
+                    hotelsList.Add(new HotelModel("Bridegewood", 150, 50, 4));
+                    hotelsList.Add(new HotelModel("Ridgewood", 220, 150, 5));
+                    Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
+                    //printing the details of hotels
+                    foreach (HotelModel hotelModel in hotelsList)
+                    {
+                        Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
+                    }
+                }
+                else if (customerType.Equals(CustomerType.Rewards.ToString()))
+                {
+                    hotelsList.Add(new HotelModel("Lakewood", 80, 80, 3));
+                    hotelsList.Add(new HotelModel("Bridegewood", 110, 50, 4));
+                    hotelsList.Add(new HotelModel("Ridgewood", 100, 40, 5));
+                    Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
+                    //printing the details of hotels
+                    foreach (HotelModel hotelModel in hotelsList)
+                    {
+                        Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
+                    }
+                }
+                else
+                {
+                    throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_CUSTOMER_TYPE, "Customer type is invalid");
                 }
             }
-            else if(customerType.Equals(CustomerType.Rewards.ToString()))
+            catch(HotelReservationCustomExceptions ex)
             {
-                hotelsList.Add(new HotelModel("Lakewood", 80, 80, 3));
-                hotelsList.Add(new HotelModel("Bridegewood", 110, 50, 4));
-                hotelsList.Add(new HotelModel("Ridgewood", 100, 40, 5));
-                Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
-                //printing the details of hotels
-                foreach (HotelModel hotelModel in hotelsList)
-                {
-                    Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
-                }
-            }
-            else
-            {
-                throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_CUSTOMER_TYPE, "Customer type is invalid");
+                Console.WriteLine(ex.Message);
             }
         }
         /// <summary>

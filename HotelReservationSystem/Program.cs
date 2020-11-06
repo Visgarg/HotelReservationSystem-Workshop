@@ -62,6 +62,11 @@ namespace HotelReservationSystem
             
             
         }
+        /// <summary>
+        /// Addings the type of the hotel data acc to customer.
+        /// </summary>
+        /// <param name="hotelReservation">The hotel reservation.</param>
+        /// <param name="datesArray">The dates array.</param>
         public static void AddingHotelDataAccToCustomerType(HotelReservation hotelReservation,string[] datesArray)
         {
             
@@ -76,9 +81,15 @@ namespace HotelReservationSystem
             catch (HotelReservationCustomExceptions ex)
             {
                 Console.WriteLine(ex.Message);
-                return;
+                Environment.Exit(0);
             }
         }
+        /// <summary>
+        /// Addings the dates in list.
+        /// </summary>
+        /// <param name="datesArray">The dates array.</param>
+        /// <returns>list of day of weeks</returns>
+        /// <exception cref="HotelReservationCustomExceptions">Date is not of correct type</exception>
         public static  List<DayOfWeek>  AddingDatesInList(string[] datesArray)
         {
             List<DayOfWeek> datesList = new List<DayOfWeek>();
@@ -87,6 +98,7 @@ namespace HotelReservationSystem
              for (int i = 1; i < datesArray.Length; i++)
              {
                 DateTime date;
+                //using regex validation to validate correct format of date
                 if (DateTime.TryParseExact(datesArray[i], "ddMMMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
                 {
                     Console.WriteLine(date+"\t"+date.DayOfWeek);
@@ -100,6 +112,10 @@ namespace HotelReservationSystem
             return datesList;
 
         }
+        /// <summary>
+        /// Inputs the customer type and date.
+        /// </summary>
+        /// <returns>array of dates with first element as customer type</returns>
         public static string[] InputCustomerTypeAndDate()
         {
             Console.WriteLine("Please enter the customer type and dates(DDMMMMYYYY) for which cheapest hotel needs to be find out");
