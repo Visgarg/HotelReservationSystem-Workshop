@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace HotelReservationSystem
 {
@@ -9,6 +10,7 @@ namespace HotelReservationSystem
     /// </summary>
     public class HotelModel
     {
+
         public int totalRate;
         public string hotelName;
         public int weekdayRates;
@@ -16,6 +18,7 @@ namespace HotelReservationSystem
         public int weekendRates;
         //adding rating to hotel
         public int ratingsForHotels;
+
         public HotelModel(int totalRate,string hotelName,int ratingsForHotels)
         {
             this.totalRate = totalRate;
