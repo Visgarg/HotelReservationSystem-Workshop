@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HotelReservationSystem
 {
@@ -24,7 +25,7 @@ namespace HotelReservationSystem
             //if date input is not in correct form, then custom exception thrown by method is catched.
             try
             {
-                datesList = AddingDatesInList(datesArray);
+                datesList = hotelReservation.AddingDatesInList(datesArray);
             }
             catch(HotelReservationCustomExceptions ex)
             {
@@ -84,34 +85,7 @@ namespace HotelReservationSystem
                 Environment.Exit(0);
             }
         }
-        /// <summary>
-        /// Addings the dates in list.
-        /// </summary>
-        /// <param name="datesArray">The dates array.</param>
-        /// <returns>list of day of weeks</returns>
-        /// <exception cref="HotelReservationCustomExceptions">Date is not of correct type</exception>
-        public static  List<DayOfWeek>  AddingDatesInList(string[] datesArray)
-        {
-            List<DayOfWeek> datesList = new List<DayOfWeek>();
-            //iterating over array of dates, converting it in date and then adding day of week  in list
-            //iteration from 1 as first input was customer type
-             for (int i = 1; i < datesArray.Length; i++)
-             {
-                DateTime date;
-                //using regex validation to validate correct format of date
-                if (DateTime.TryParseExact(datesArray[i], "ddMMMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
-                {
-                    Console.WriteLine(date+"\t"+date.DayOfWeek);
-                    datesList.Add(date.DayOfWeek);
-                }
-                else
-                { 
-                    throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_DATE, "Date is not of correct type");
-                }
-             }
-            return datesList;
-
-        }
+      
         /// <summary>
         /// Inputs the customer type and date.
         /// </summary>

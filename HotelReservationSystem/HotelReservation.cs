@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
+
     /// <summary>
     /// class to add hotels elements in list and get the cheapest hotel
     /// </summary>
@@ -21,45 +23,67 @@
         /// </summary>
         public void AddingHotelsInList(string customerType)
         {
-            try
+            //printing custmer type
+            Console.WriteLine("Type of Customer:\t" + customerType);
+            //checking for customer type to be equal to value in enum customer type
+            if (customerType.Equals(CustomerType.Regular.ToString()))
             {
-                //printing custmer type
-                Console.WriteLine("Type of Customer:\t" + customerType);
-                //checking for customer type to be equal to value in enum customer type
-                if (customerType.Equals(CustomerType.Regular.ToString()))
+                //adding values in hotellist according to the customer type
+                hotelsList.Add(new HotelModel("Lakewood", 110, 90, 3));
+                hotelsList.Add(new HotelModel("Bridgewood", 150, 50, 4));
+                hotelsList.Add(new HotelModel("Ridgewood", 220, 150, 5));
+                Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
+                //printing the details of hotels
+                foreach (HotelModel hotelModel in hotelsList)
                 {
-                    //adding values in hotellist according to the customer type
-                    hotelsList.Add(new HotelModel("1akewood", 110, 90, 3));
-                    hotelsList.Add(new HotelModel("Bridegewood", 150, 50, 4));
-                    hotelsList.Add(new HotelModel("Ridgewood", 220, 150, 5));
-                    Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
-                    //printing the details of hotels
-                    foreach (HotelModel hotelModel in hotelsList)
-                    {
-                        Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
-                    }
+                    Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
                 }
-                else if (customerType.Equals(CustomerType.Rewards.ToString()))
+            }
+            else if (customerType.Equals(CustomerType.Rewards.ToString()))
+            {
+                hotelsList.Add(new HotelModel("Lakewood", 80, 80, 3));
+                hotelsList.Add(new HotelModel("Bridgewood", 110, 50, 4));
+                hotelsList.Add(new HotelModel("Ridgewood", 100, 40, 5));
+                Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
+                //printing the details of hotels
+                foreach (HotelModel hotelModel in hotelsList)
                 {
-                    hotelsList.Add(new HotelModel("Lakewood", 80, 80, 3));
-                    hotelsList.Add(new HotelModel("Bridegewood", 110, 50, 4));
-                    hotelsList.Add(new HotelModel("Ridgewood", 100, 40, 5));
-                    Console.WriteLine("Hotel Name \tWeekdayHotelPrices\tweekendHotelPrices");
-                    //printing the details of hotels
-                    foreach (HotelModel hotelModel in hotelsList)
-                    {
-                        Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
-                    }
+                    Console.WriteLine(hotelModel.hotelName + ":\t" + hotelModel.weekdayRates + "\t\t" + hotelModel.weekendRates);
+                }
+            }
+            else
+            {
+                throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_CUSTOMER_TYPE, "Customer type is invalid");
+            }
+
+        }
+        /// <summary>
+        /// Addings the dates in list.
+        /// </summary>
+        /// <param name="datesArray">The dates array.</param>
+        /// <returns>list of day of weeks</returns>
+        /// <exception cref="HotelReservationCustomExceptions">Date is not of correct type</exception>
+        public List<DayOfWeek> AddingDatesInList(string[] datesArray)
+        {
+            List<DayOfWeek> datesList = new List<DayOfWeek>();
+            //iterating over array of dates, converting it in date and then adding day of week  in list
+            //iteration from 1 as first input was customer type
+            for (int i = 1; i < datesArray.Length; i++)
+            {
+                DateTime date;
+                //using regex validation to validate correct format of date
+                if (DateTime.TryParseExact(datesArray[i], "ddMMMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                {
+                    Console.WriteLine(date + "\t" + date.DayOfWeek);
+                    datesList.Add(date.DayOfWeek);
                 }
                 else
                 {
-                    throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_CUSTOMER_TYPE, "Customer type is invalid");
+                    throw new HotelReservationCustomExceptions(HotelReservationCustomExceptions.ExceptionType.INVALID_DATE, "Date is not of correct type");
                 }
             }
-            catch(HotelReservationCustomExceptions ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            return datesList;
+
         }
         /// <summary>
         /// Calculatings the price for each hotel.
@@ -98,7 +122,7 @@
         /// Cheapests the hotel for given dates in sorted dictionary
         /// </summary>
         /// <param name="datesList">The dates list.</param>
-        public void CheapestHotelForGivenDates(List<DayOfWeek> datesList)
+        public HotelModel CheapestHotelForGivenDates(List<DayOfWeek> datesList)
         {
             //calling calculatingpriceforeachhotel for totalrates for each hotel
             CalculatingPriceForEachHotel(datesList);
@@ -126,9 +150,10 @@
                 {
                     Console.WriteLine("*************************Cheapest hotel with best ratings*****************************");
                     Console.WriteLine("\nCheapest Hotel for given Dates:\t" +hotelModel.hotelName + "\nTotal Price to be paid for cheapest hotel:\t" + hotelModel.totalRate + "\nRating of Hotel:\t" + hotelModel.ratingsForHotels);
-                    Console.WriteLine();
+                    return hotelModel;
                 }
             }
+            return null;
         }
         /// <summary>
         /// Findings the hotels with best ratings.
