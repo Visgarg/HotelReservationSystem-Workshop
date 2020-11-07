@@ -32,5 +32,21 @@ namespace HotelReservationSystem
             this.weekendRates = weekendRates;
             this.ratingsForHotels = ratingsForHotels;
         }
+        public override bool Equals(Object obj)
+        {
+            if(obj==null)
+            {
+                return false;
+            }
+            if(!(obj is HotelModel))
+            {
+                return false;
+            }
+            return ((this.hotelName == (((HotelModel)obj).hotelName)) && (this.totalRate == (((HotelModel)obj).totalRate)) && (this.ratingsForHotels == (((HotelModel)obj).ratingsForHotels)));
+        }
+        public override int GetHashCode()
+        {
+            return this.hotelName.GetHashCode() ^ this.totalRate.GetHashCode() ^ this.ratingsForHotels.GetHashCode();
+        }
     }
 }
